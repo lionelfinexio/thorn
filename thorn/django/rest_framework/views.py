@@ -14,7 +14,9 @@ from django.shortcuts import get_object_or_404
 from thorn._state import current_app
 from thorn.django.models import Subscriber
 
-from .serializers import SubscriberSerializer
+from .serializers import (
+    SubscriberSerializer, SubscriberListSerializer
+)
 
 __all__ = ['SubscriberList', 'SubscriberDetail']
 
@@ -28,6 +30,9 @@ class SubscriberList(ListCreateAPIView):
     """List and create new subscriptions for the currently logged in user."""
 
     serializer_class = SubscriberSerializer
+    serializer_action_class = {
+        'list': SubscriberListSerializer
+    }
     model = Subscriber
     permission_classes = property(_permission_classes)
 
@@ -47,6 +52,9 @@ class SubscriberDetail(RetrieveUpdateDestroyAPIView):
     """
 
     serializer_class = SubscriberSerializer
+    serializer_action_class = {
+        'retrieve': SubscriberListSerializer
+    }
     model = Subscriber
     lookup_field = 'uuid'
     permission_classes = property(_permission_classes)
