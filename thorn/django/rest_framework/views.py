@@ -29,21 +29,12 @@ class SubscriberList(ListCreateAPIView):
     """List and create new subscriptions for the currently logged in user."""
 
     serializer_class = SubscriberSerializer
-    # serializer_action_class = {
-    #     'list': SubscriberListSerializer
-    # }
     model = Subscriber
     permission_classes = property(_permission_classes)
 
     def get_queryset(self):
         return self.model.objects.filter(user=self.request.user)
-
-    def list(self, request):
-        # Note the use of `get_queryset()` instead of `self.queryset`
-        queryset = self.get_queryset()
-        serializer = SubscriberSerializer(queryset, many=True, context={'request': request})
-        return Response(serializer.data)
-
+        
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
@@ -57,9 +48,6 @@ class SubscriberDetail(RetrieveUpdateDestroyAPIView):
     """
 
     serializer_class = SubscriberSerializer
-    # serializer_action_class = {
-    #     'retrieve': SubscriberListSerializer
-    # }
     model = Subscriber
     lookup_field = 'uuid'
     permission_classes = property(_permission_classes)
