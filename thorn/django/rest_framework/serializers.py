@@ -5,7 +5,7 @@ from rest_framework import serializers
 
 from thorn.django.models import Subscriber
 
-__all__ = ['SubscriberSerializer', 'SubscriberListSerializer']
+__all__ = ['SubscriberSerializer']
 
 
 class SubscriberSerializer(serializers.HyperlinkedModelSerializer):
@@ -36,23 +36,7 @@ class SubscriberSerializer(serializers.HyperlinkedModelSerializer):
             'username',
             'password'
         )
-        read_only_fields = ('id', 'created_at', 'updated_at', 'subscription')
-
-class SubscriberListSerializer(serializers.HyperlinkedModelSerializer):
-    """Serializer for :class:`~thorn.django.models.Subscriber`."""
-
-    subscription = serializers.HyperlinkedIdentityField(
-        view_name='webhook:detail',
-        lookup_url_kwarg='uuid', lookup_field='uuid',
-    )
-    id = serializers.UUIDField(source='uuid', read_only=True)
-    user = serializers.IntegerField(source='user.pk', default=None)
-
-    class Meta:
-        """Serializer configuration."""
-
-        model = Subscriber
-        fields = (
+        list_fields = (
             'event', 
             'url', 
             'content_type', 
@@ -64,3 +48,43 @@ class SubscriberListSerializer(serializers.HyperlinkedModelSerializer):
             'username',
             'password'
         )
+        retrieve_fields = (
+            'event', 
+            'url', 
+            'content_type', 
+            'user',
+            'id', 
+            'created_at', 
+            'updated_at', 
+            'subscription',
+            'username',
+            'password'
+        )
+        read_only_fields = ('id', 'created_at', 'updated_at', 'subscription')
+
+# class SubscriberListSerializer(serializers.HyperlinkedModelSerializer):
+#     """Serializer for :class:`~thorn.django.models.Subscriber`."""
+
+#     subscription = serializers.HyperlinkedIdentityField(
+#         view_name='webhook:detail',
+#         lookup_url_kwarg='uuid', lookup_field='uuid',
+#     )
+#     id = serializers.UUIDField(source='uuid', read_only=True)
+#     user = serializers.IntegerField(source='user.pk', default=None)
+
+#     class Meta:
+#         """Serializer configuration."""
+
+#         model = Subscriber
+#         fields = (
+#             'event', 
+#             'url', 
+#             'content_type', 
+#             'user',
+#             'id', 
+#             'created_at', 
+#             'updated_at', 
+#             'subscription',
+#             'username',
+#             'password'
+#         )

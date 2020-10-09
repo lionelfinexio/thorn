@@ -14,9 +14,7 @@ from django.shortcuts import get_object_or_404
 from thorn._state import current_app
 from thorn.django.models import Subscriber
 
-from .serializers import (
-    SubscriberSerializer, SubscriberListSerializer
-)
+from .serializers import SubscriberSerializer
 
 __all__ = ['SubscriberList', 'SubscriberDetail']
 
@@ -30,25 +28,25 @@ class SubscriberList(ListCreateAPIView):
     """List and create new subscriptions for the currently logged in user."""
 
     serializer_class = SubscriberSerializer
-    serializer_action_class = {
-        'list': SubscriberListSerializer
-    }
+    # serializer_action_class = {
+    #     'list': SubscriberListSerializer
+    # }
     model = Subscriber
     permission_classes = property(_permission_classes)
 
     def get_queryset(self):
         return self.model.objects.filter(user=self.request.user)
 
-    def list(self, request, *args, **kwargs):
-        queryset = self.get_queryset()
+    # def list(self, request, *args, **kwargs):
+    #     queryset = self.get_queryset()
 
-        page = self.paginate_queryset(queryset)
-        if page is not None:
-            serializer = self.get_serializer(page, many=True)
-            serializer = self.get_paginated_response(serializer.data)
-            return serializer.data
-        serializer = self.get_serializer(queryset, many=True)
-        return serializer.data
+    #     page = self.paginate_queryset(queryset)
+    #     if page is not None:
+    #         serializer = self.get_serializer(page, many=True)
+    #         serializer = self.get_paginated_response(serializer.data)
+    #         return serializer.data
+    #     serializer = self.get_serializer(queryset, many=True)
+    #     return serializer.data
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -63,9 +61,9 @@ class SubscriberDetail(RetrieveUpdateDestroyAPIView):
     """
 
     serializer_class = SubscriberSerializer
-    serializer_action_class = {
-        'retrieve': SubscriberListSerializer
-    }
+    # serializer_action_class = {
+    #     'retrieve': SubscriberListSerializer
+    # }
     model = Subscriber
     lookup_field = 'uuid'
     permission_classes = property(_permission_classes)
