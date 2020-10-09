@@ -94,6 +94,8 @@ class SubscriberModelMixin(object):
             'event': self.event,
             'user': self.user_ident(),
             'url': self.url,
+            'username': self.username,
+            'password': self.password,
             'hmac_secret': self.hmac_secret,
             'hmac_digest': self.hmac_digest,
             'content_type': self.content_type,

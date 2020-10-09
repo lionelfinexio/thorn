@@ -59,6 +59,20 @@ class Subscriber(models.Model, SubscriberModelMixin):
         help_text=_('Callback URL'),
     )
 
+    username = models.CharField(
+        _('username'),
+        max_length=CHAR_MAX_LENGTH,
+        db_index=True,
+        help_text=_('Basic Auth username'),
+    )
+
+    password = models.CharField(
+        _('password'),
+        max_length=CHAR_MAX_LENGTH,
+        db_index=True,
+        help_text=_('Basic Auth password'),
+    )
+
     user = models.ForeignKey(
         django_settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
