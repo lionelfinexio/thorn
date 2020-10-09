@@ -41,7 +41,7 @@ class SubscriberList(ListCreateAPIView):
     def list(self, request):
         # Note the use of `get_queryset()` instead of `self.queryset`
         queryset = self.get_queryset()
-        serializer = SubscriberSerializer(queryset, many=True)
+        serializer = SubscriberSerializer(queryset, many=True, context={'request': request})
         return Response(serializer.data)
 
     def perform_create(self, serializer):
