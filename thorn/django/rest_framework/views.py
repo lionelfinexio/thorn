@@ -39,6 +39,17 @@ class SubscriberList(ListCreateAPIView):
     def get_queryset(self):
         return self.model.objects.filter(user=self.request.user)
 
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            serializer = self.get_paginated_response(serializer.data)
+            return return_success(serializer.data)
+        serializer = self.get_serializer(queryset, many=True)
+        return return_success(serializer.data)
+
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
