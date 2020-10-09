@@ -1,6 +1,7 @@
 """DRF serializers."""
 from __future__ import absolute_import, unicode_literals
 
+from action_serializer import ModelActionSerializer
 from rest_framework import serializers
 
 from thorn.django.models import Subscriber
@@ -8,7 +9,7 @@ from thorn.django.models import Subscriber
 __all__ = ['SubscriberSerializer']
 
 
-class SubscriberSerializer(serializers.HyperlinkedModelSerializer):
+class SubscriberSerializer(serializers.HyperlinkedModelSerializer, ModelActionSerializer):
     """Serializer for :class:`~thorn.django.models.Subscriber`."""
 
     subscription = serializers.HyperlinkedIdentityField(
@@ -22,44 +23,6 @@ class SubscriberSerializer(serializers.HyperlinkedModelSerializer):
         """Serializer configuration."""
 
         model = Subscriber
-        list_fields = (
-            'event', 
-            'url', 
-            'content_type', 
-            'user',
-            'id', 
-            'created_at', 
-            'updated_at', 
-            'subscription',
-            'username',
-            'password'
-        )
-        retrieve_fields = (
-            'event', 
-            'url', 
-            'content_type', 
-            'user',
-            'id', 
-            'created_at', 
-            'updated_at', 
-            'subscription',
-            'username',
-            'password'
-        )
-        create_fields = (
-            'event', 
-            'url', 
-            'content_type', 
-            'user',
-            'id', 
-            'created_at', 
-            'updated_at', 
-            'subscription',
-            'hmac_secret', 
-            'hmac_digest',
-            'username',
-            'password'
-        )
         fields = (
             'event', 
             'url', 
@@ -74,6 +37,30 @@ class SubscriberSerializer(serializers.HyperlinkedModelSerializer):
             'username',
             'password'
         )
+        action_fields = {'list': {'fields': (
+            'event', 
+            'url', 
+            'content_type', 
+            'user',
+            'id', 
+            'created_at', 
+            'updated_at', 
+            'subscription',
+            'username',
+            'password'
+        )},
+        'retrieve': {'fields': (
+            'event', 
+            'url', 
+            'content_type', 
+            'user',
+            'id', 
+            'created_at', 
+            'updated_at', 
+            'subscription',
+            'username',
+            'password'
+        )},}
         
         read_only_fields = ('id', 'created_at', 'updated_at', 'subscription')
 
