@@ -46,9 +46,9 @@ class SubscriberList(ListCreateAPIView):
         if page is not None:
             serializer = self.get_serializer(page, many=True)
             serializer = self.get_paginated_response(serializer.data)
-            return return_success(serializer.data)
+            return serializer.data
         serializer = self.get_serializer(queryset, many=True)
-        return return_success(serializer.data)
+        return serializer.data
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
