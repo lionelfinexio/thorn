@@ -358,14 +358,14 @@ class ModelEvent(Event):
 
     def to_message(self, data, instance=None, sender=None, ref=None):
         # type: (Any, Model, Any, str) -> Dict[str, Any]
-        name = self._get_name(instance)
-        return {
-            # 'event': name,
-            # 'ref': ref,
-            # 'sender': sender.get_username() if sender else sender,
-            # 'data': data or {},
-            data or {},
-        }
+        # name = self._get_name(instance)
+        # return {
+        #     'event': name,
+        #     'ref': ref,
+        #     'sender': sender.get_username() if sender else sender,
+        #     'data': data or {},
+        # }
+        return data or {}
 
     def instance_data(self, instance):
         # type: (Model) -> Any
