@@ -1,6 +1,7 @@
 """Webhook HTTP requests."""
 from __future__ import absolute_import, unicode_literals
 
+import base64
 import thorn
 import requests
 import socket
@@ -198,6 +199,12 @@ class Request(ThenableProxy):
         host, url = self.to_safeurl(self.subscriber.url)
 
         with self.session_or_acquire(session) as session:
+            # basic_auth = f'{self.subscriber.username}:{self.subscriber.password}'
+            credentials = ('%s:%s' % (self.subscriber.username, self.subscriber.password))
+            base64_credentials = base64.b64encode(
+                credentials.encode('ascii')
+            ).decode('ascii')
+            basic_auth = 'Basic %s' % base64_credentials
             return session.post(
                 url=url,
                 data=self.data,
@@ -207,6 +214,7 @@ class Request(ThenableProxy):
                     'Hook-HMAC': self.sign_request(self.subscriber, self.data),
                     'Hook-Subscription': str(self.subscriber.uuid),
                     'Host': host,
+                    'Authorization': basic_auth
                 }),
                 verify=False,
             )
