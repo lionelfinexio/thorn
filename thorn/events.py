@@ -360,10 +360,11 @@ class ModelEvent(Event):
         # type: (Any, Model, Any, str) -> Dict[str, Any]
         name = self._get_name(instance)
         return {
-            'event': name,
-            'ref': ref,
-            'sender': sender.get_username() if sender else sender,
-            'data': data or {},
+            # 'event': name,
+            # 'ref': ref,
+            # 'sender': sender.get_username() if sender else sender,
+            # 'data': data or {},
+            data or {},
         }
 
     def instance_data(self, instance):
