@@ -22,20 +22,6 @@ class SubscriberSerializer(serializers.HyperlinkedModelSerializer):
         """Serializer configuration."""
 
         model = Subscriber
-        fields = (
-            'event', 
-            'url', 
-            'content_type', 
-            'user',
-            'id', 
-            'created_at', 
-            'updated_at', 
-            'subscription',
-            'hmac_secret', 
-            'hmac_digest',
-            'username',
-            'password'
-        )
         list_fields = (
             'event', 
             'url', 
@@ -60,6 +46,35 @@ class SubscriberSerializer(serializers.HyperlinkedModelSerializer):
             'username',
             'password'
         )
+        create_fields = (
+            'event', 
+            'url', 
+            'content_type', 
+            'user',
+            'id', 
+            'created_at', 
+            'updated_at', 
+            'subscription',
+            'hmac_secret', 
+            'hmac_digest',
+            'username',
+            'password'
+        )
+        fields = (
+            'event', 
+            'url', 
+            'content_type', 
+            'user',
+            'id', 
+            'created_at', 
+            'updated_at', 
+            'subscription',
+            'hmac_secret', 
+            'hmac_digest',
+            'username',
+            'password'
+        )
+        
         read_only_fields = ('id', 'created_at', 'updated_at', 'subscription')
 
 # class SubscriberListSerializer(serializers.HyperlinkedModelSerializer):
