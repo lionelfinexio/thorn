@@ -8,6 +8,7 @@ from rest_framework.generics import (
     ListCreateAPIView, RetrieveUpdateDestroyAPIView,
 )
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 from django.shortcuts import get_object_or_404
 
@@ -37,16 +38,11 @@ class SubscriberList(ListCreateAPIView):
     def get_queryset(self):
         return self.model.objects.filter(user=self.request.user)
 
-    # def list(self, request, *args, **kwargs):
-    #     queryset = self.get_queryset()
-
-    #     page = self.paginate_queryset(queryset)
-    #     if page is not None:
-    #         serializer = self.get_serializer(page, many=True)
-    #         serializer = self.get_paginated_response(serializer.data)
-    #         return serializer.data
-    #     serializer = self.get_serializer(queryset, many=True)
-    #     return serializer.data
+    def list(self, request):
+        # Note the use of `get_queryset()` instead of `self.queryset`
+        queryset = self.get_queryset()
+        serializer = SubscriberSerializer(queryset, many=True)
+        return Response(serializer.data)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
