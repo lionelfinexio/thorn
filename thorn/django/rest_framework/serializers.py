@@ -32,35 +32,33 @@ class SubscriberSerializer(serializers.HyperlinkedModelSerializer, ModelActionSe
             'created_at', 
             'updated_at', 
             'subscription',
-            'hmac_secret', 
-            'hmac_digest',
             'username',
             'password'
         )
-        action_fields = {'list': {'fields': (
-            'event', 
-            'url', 
-            'content_type', 
-            'user',
-            'id', 
-            'created_at', 
-            'updated_at', 
-            'subscription',
-            'username',
-            'password'
-        )},
-        'retrieve': {'fields': (
-            'event', 
-            'url', 
-            'content_type', 
-            'user',
-            'id', 
-            'created_at', 
-            'updated_at', 
-            'subscription',
-            'username',
-            'password'
-        )},}
+        # action_fields = {'list': {'fields': (
+        #     'event', 
+        #     'url', 
+        #     'content_type', 
+        #     'user',
+        #     'id', 
+        #     'created_at', 
+        #     'updated_at', 
+        #     'subscription',
+        #     'username',
+        #     'password'
+        # )},
+        # 'retrieve': {'fields': (
+        #     'event', 
+        #     'url', 
+        #     'content_type', 
+        #     'user',
+        #     'id', 
+        #     'created_at', 
+        #     'updated_at', 
+        #     'subscription',
+        #     'username',
+        #     'password'
+        # )},}
         
         read_only_fields = ('id', 'created_at', 'updated_at', 'subscription')
 
