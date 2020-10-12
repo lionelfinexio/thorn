@@ -119,6 +119,7 @@ class Subscriber(models.Model, SubscriberModelMixin):
         # ordering by hostname for ability to optimize for keepalive.
         ordering = ['url', '-created_at']
         get_latest_by = 'updated_at'
+        unique_together = (('event', 'user'),)
 
     def user_ident(self):
         return self.user and self.user.pk

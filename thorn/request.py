@@ -199,7 +199,6 @@ class Request(ThenableProxy):
         host, url = self.to_safeurl(self.subscriber.url)
 
         with self.session_or_acquire(session) as session:
-            # basic_auth = f'{self.subscriber.username}:{self.subscriber.password}'
             credentials = ('%s:%s' % (self.subscriber.username, self.subscriber.password))
             base64_credentials = base64.b64encode(
                 credentials.encode('ascii')
