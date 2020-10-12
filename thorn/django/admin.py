@@ -8,4 +8,7 @@ from django.contrib import admin
 
 from . import models
 
-admin.site.register(models.Subscriber)
+class SubscriberAdmin(admin.ModelAdmin):
+    pass
+
+admin.site.register(models.Subscriber, SubscriberAdmin)
