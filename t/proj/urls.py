@@ -40,8 +40,8 @@ urlpatterns = [
     url(r'^api-auth/', include(
         ('rest_framework.urls', 'rest_framework'), namespace='rest_framework')),
     url(r'^api-token-auth/', obtain_auth_token),
-    url(r'^hooks/', include(
-        ('thorn.django.rest_framework.urls', 'thorn'), namespace='webhook')),
+    url(r'^webhooks/', include(
+        ('thorn.django.rest_framework.urls', 'thorn'), namespace='webhooks')),
     url(r'^user/', user_detail, name='user-detail'),
     url(r'^article/', include(
         ('testapp.urls', 'testapp'), namespace='article',
