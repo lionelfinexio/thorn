@@ -12,7 +12,7 @@ class SubscriberSerializer(serializers.HyperlinkedModelSerializer):
     """Serializer for :class:`~thorn.django.models.Subscriber`."""
 
     subscription = serializers.HyperlinkedIdentityField(
-        view_name='webhook:detail',
+        view_name='webhooks:detail',
         lookup_url_kwarg='uuid', lookup_field='uuid',
     )
     id = serializers.UUIDField(source='uuid', read_only=True)
