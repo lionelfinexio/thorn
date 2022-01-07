@@ -43,7 +43,7 @@ Two new API endpoints will now be available in your application:
 """
 from __future__ import absolute_import, unicode_literals
 
-from django.conf.urls import url
+from django.conf.urls import re_path
 
 from . import views
 
