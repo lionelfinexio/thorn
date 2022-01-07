@@ -3,7 +3,8 @@ from __future__ import absolute_import, unicode_literals
 
 import operator
 
-from collections.abc import Callable, deque
+from collections.abc import Callable
+from collections import deque
 from functools import partial
 from itertools import islice
 from six import string_types
